@@ -10,6 +10,8 @@ const {
   description = "Jack Mielke - Creative Developer & AI Whisperer. Explore my projects, writing, and work.",
   image = "https://jackmielke.com/og-image.jpg" 
 } = Astro.props;
+
+import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
 ---
 
 <!doctype html>
@@ -29,20 +31,452 @@ const {
     <meta name="twitter:image" content={image} />
     <meta name="twitter:image:alt" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-[#0d1b1e] text-white">
-    <div class="fixed inset-0 -z-10 bg-gradient-to-b from-[#0d1b1e] via-[#134e57] to-[#0d1b1e]"></div>
-    <slot />
+  <body class="bg-[#0a0a0f] text-[#c2e6e9] font-mono">
+    <!-- Retro scanlines overlay -->
+    <div class="fixed inset-0 pointer-events-none z-50 scanlines opacity-20"></div>
+    
+    <!-- CRT vignette effect -->
+    <div class="fixed inset-0 pointer-events-none z-40 vignette"></div>
+    
+    <!-- Glowing circuit board background -->
+    <div class="fixed inset-0 -z-10 circuit-background"></div>
+
+    <!-- Terminal container -->
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-title">JΞCKDΞCK v3.7.1</div>
+        <div class="terminal-controls">
+          <span class="terminal-light"></span>
+          <span class="terminal-light"></span>
+          <span class="terminal-light"></span>
+        </div>
+      </div>
+      <div class="terminal-content">
+        <div class="terminal-bootup" id="bootSequence">
+          <div class="bootup-line">Initializing cyberdeck...</div>
+          <div class="bootup-line">Loading neural interfaces...</div>
+          <div class="bootup-line">Connecting to AI consciousness...</div>
+          <div class="bootup-line">Decrypting personal archives...</div>
+          <div class="bootup-line">Access granted. Welcome, User.</div>
+          <div class="bootup-line blink-cursor">JackMielke.exe ready >_</div>
+        </div>
+        <div class="terminal-main" id="mainContent">
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <SpaceThemeToggle />
+    
     <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script is:inline>
       AOS.init({
         duration: 800,
         once: true,
       });
+
+      // Terminal boot sequence animation
+      document.addEventListener('DOMContentLoaded', () => {
+        const bootSequence = document.getElementById('bootSequence');
+        const mainContent = document.getElementById('mainContent');
+        const bootLines = document.querySelectorAll('.bootup-line');
+        
+        // Hide main content initially
+        mainContent.style.opacity = '0';
+        
+        // Animate each boot line sequentially
+        let delay = 400;
+        bootLines.forEach((line, index) => {
+          setTimeout(() => {
+            line.classList.add('active');
+            
+            // When last line is shown, fade in the main content
+            if (index === bootLines.length - 1) {
+              setTimeout(() => {
+                bootSequence.style.height = '120px';
+                bootSequence.style.opacity = '0.4';
+                mainContent.style.opacity = '1';
+              }, 1000);
+            }
+          }, delay * (index + 1));
+        });
+
+        // Random glitch effect on terminal
+        setInterval(() => {
+          if (Math.random() > 0.9) {
+            document.body.classList.add('glitch');
+            setTimeout(() => {
+              document.body.classList.remove('glitch');
+            }, 100);
+          }
+        }, 5000);
+      });
     </script>
   </body>
 </html>
+
+<style is:global>
+  @keyframes flicker {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes flashing {
+    0%, 100% { background-color: rgba(64, 224, 208, 0.3); }
+    50% { background-color: rgba(64, 224, 208, 0.6); }
+  }
+
+  :root {
+    --terminal-bg: #0a0a0f;
+    --terminal-text: #c2e6e9;
+    --terminal-glow: #40e0d0;
+    --terminal-highlight: #ff5277;
+    --terminal-header: #0c1e26;
+  }
+
+  /* Global styles */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--terminal-bg);
+    color: var(--terminal-text);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    animation: flicker 5s infinite;
+  }
+
+  body.glitch {
+    animation: glitch 0.2s infinite;
+  }
+
+  /* Terminal styling */
+  .terminal-container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: rgba(10, 10, 15, 0.9);
+    border: 1px solid var(--terminal-glow);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(64, 224, 208, 0.2);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .terminal-header {
+    background-color: var(--terminal-header);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(64, 224, 208, 0.3);
+  }
+
+  .terminal-title {
+    color: var(--terminal-glow);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .terminal-controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .terminal-light {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(64, 224, 208, 0.3);
+    animation: flashing 4s infinite;
+  }
+
+  .terminal-light:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .terminal-light:nth-child(3) {
+    animation-delay: 1s;
+  }
+
+  .terminal-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .terminal-bootup {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--terminal-text);
+    transition: all 0.8s ease;
+    overflow: hidden;
+  }
+
+  .bootup-line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+    color: rgba(194, 230, 233, 0.8);
+  }
+
+  .bootup-line.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .blink-cursor::after {
+    content: '█';
+    animation: blink 1s infinite;
+  }
+
+  .terminal-main {
+    transition: opacity 1s ease;
+  }
+
+  /* Effect overlays */
+  .scanlines {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 100% 4px;
+    animation: scan 8s linear infinite;
+  }
+
+  .vignette {
+    background: radial-gradient(
+      circle,
+      transparent 60%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+
+  .circuit-background {
+    background-color: var(--terminal-bg);
+    background-image: 
+      radial-gradient(rgba(64, 224, 208, 0.1) 2px, transparent 2px),
+      linear-gradient(to right, rgba(64, 224, 208, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(64, 224, 208, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px, 20px 20px, 20px 20px;
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  /* Links styling */
+  a {
+    color: var(--terminal-glow);
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--terminal-highlight);
+    text-shadow: 0 0 8px rgba(255, 82, 119, 0.5);
+  }
+
+  a:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: var(--terminal-highlight);
+    box-shadow: 0 0 8px rgba(255, 82, 119, 0.5);
+  }
+
+  /* Data visualization elements */
+  .data-box {
+    border: 1px solid rgba(64, 224, 208, 0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(12, 30, 38, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .data-box:hover {
+    box-shadow: 0 0 15px rgba(64, 224, 208, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .data-heading {
+    color: var(--terminal-glow);
+    border-bottom: 1px solid rgba(64, 224, 208, 0.2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(10, 10, 15, 0.9);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(64, 224, 208, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(64, 224, 208, 0.5);
+  }
+
+  /* Text selection */
+  ::selection {
+    background-color: rgba(64, 224, 208, 0.3);
+    color: #ffffff;
+  }
+
+  /* Custom animations for page elements */
+  [data-aos] {
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      padding: 1.5rem;
+    }
+  }
+
+  .project-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 25px rgba(64, 224, 208, 0.3);
+  }
+
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 1rem 0;
+    border: 1px solid var(--terminal-glow);
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(10, 10, 15, 0.8);
+  }
+
+  .iframe-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 15, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+
+  .iframe-container:hover .iframe-overlay {
+    opacity: 0;
+  }
+
+  .loading-text {
+    color: var(--terminal-glow);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    animation: blink 1s infinite;
+  }
+
+  .project-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+
+  .iframe-container:hover .project-iframe {
+    transform: scale(1.02);
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  .iframe-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(64, 224, 208, 0.2);
+    animation: scanline 2s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+  }
+</style>

@@ -88,3 +88,132 @@ const menuItems = [
     }
   });
 </script>
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#0d1b1e]/80 backdrop-blur-md border-b border-[#134e57]/20">
+  <div class="max-w-3xl mx-auto px-6 py-4">
+    <div class="flex justify-center gap-8">
+      <button
+        id="projectsBtn"
+        class="text-lg text-[#e6d7c3] hover:text-[#40e0d0] transition-colors duration-300 font-medium nav-btn active"
+        data-section="projects"
+      >
+        Projects
+      </button>
+      <button
+        id="writingBtn"
+        class="text-lg text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300 font-medium nav-btn"
+        data-section="writing"
+      >
+        Writing
+      </button>
+      <button
+        id="aboutBtn"
+        class="text-lg text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300 font-medium nav-btn"
+        data-section="about"
+      >
+        About
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-btn.active {
+    color: #40e0d0;
+    position: relative;
+  }
+
+  .nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #40e0d0;
+    transform: scaleX(1);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #40e0d0;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-btn:hover::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  function initNavigation() {
+    const buttons = document.querySelectorAll('.nav-btn');
+    const sections = {
+      projects: document.getElementById('projects'),
+      writing: document.getElementById('writing'),
+      about: document.getElementById('about'),
+      hero: document.getElementById('hero')
+    };
+
+    // Show only projects section by default
+    Object.entries(sections).forEach(([id, element]) => {
+      if (element && id !== 'projects' && id !== 'hero') {
+        element.style.display = 'none';
+      }
+    });
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update button styles
+        buttons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.classList.add('text-[#e6d7c3]/70');
+          btn.classList.remove('text-[#40e0d0]');
+        });
+        button.classList.add('active');
+        button.classList.remove('text-[#e6d7c3]/70');
+        button.classList.add('text-[#40e0d0]');
+
+        // Show selected section, hide others
+        const sectionId = button.dataset.section;
+        Object.entries(sections).forEach(([id, element]) => {
+          if (element && id !== 'hero') {
+            if (id === sectionId) {
+              element.style.display = 'block';
+              element.style.animation = 'fadeIn 0.5s ease forwards';
+            } else {
+              element.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  }
+
+  // Run initialization when the DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavigation);
+  } else {
+    initNavigation();
+  }
+</script>
+
+<style is:global>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

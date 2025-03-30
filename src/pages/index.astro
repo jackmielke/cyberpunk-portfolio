@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SocialLink from '../components/SocialLink.astro';
-import Navigation from '../components/Navigation.astro';
 
 const projects = [
   {
@@ -10,27 +9,32 @@ const projects = [
     url: 'https://flowphangan.com/',
     description: 'A tropical paradise for AI Builders in Thailand - Creating a vibrant community of digital nomads and entrepreneurs',
     imagePath: '/IMG_7992.jpg',
-    featured: true
+    featured: true,
+    techStack: ['AI', 'Community', 'Entrepreneurship']
   },
   {
     title: 'OxPrep',
     url: 'http://oxprep.com',
-    description: 'AI powered app for assisting college admissions into Oxford and Cambridge'
+    description: 'AI powered app for assisting college admissions into Oxford and Cambridge',
+    techStack: ['AI', 'Education', 'Web App']
   },
   {
     title: 'Bitcoin Explained',
     url: 'https://bitcoin-explained-by.replit.app/',
-    description: 'A creative exploration of Bitcoin\'s proof of work through a beautiful web experience'
+    description: 'A creative exploration of Bitcoin\'s proof of work through a beautiful web experience',
+    techStack: ['Web', 'Crypto', 'Educational']
   },
   {
     title: 'Think Different',
     url: 'http://thinkindifferent.wtf',
-    description: 'An artistic web experience dedicated to the crazy ones who Think Different'
+    description: 'An artistic web experience dedicated to the crazy ones who Think Different',
+    techStack: ['Web', 'Art', 'Inspiration']
   },
   {
     title: 'Voice a Sketch',
     url: 'https://vocal-eyez.replit.app/',
-    description: 'A voice-controlled drawing app where the tone of your voice guides the sketch pad'
+    description: 'A voice-controlled drawing app where the tone of your voice guides the sketch pad',
+    techStack: ['Web', 'Audio', 'Creative']
   }
 ];
 
@@ -38,154 +42,793 @@ const featuredPost = {
   title: 'Life at the Edge',
   url: 'https://open.substack.com/pub/jackmielke/p/life-at-the-edge',
   description: 'Unpacking 3 pop-up cities, 6 unconventional months, and lots of change 🌊🌞',
-  imagePath: '/Life at the Edge 0281 Portfolio.jpg'
+  imagePath: '/Life at the Edge 0281 Portfolio.jpg',
+  date: '2023-11-04',
+  readTime: '8 min'
 };
 
-const favoriteSites = [
-  { title: 'My Resume', url: 'https://jackmielke.notion.site/Jack-Mielke-f5229540843445c591b0ffbd4d3f8ba5?pvs=4' },
-  { title: 'Popup Cities Article', url: 'https://open.substack.com/pub/jackmielke/p/life-at-the-edge?r=nfyht&utm_medium=ios' }
+const posts = [
+  {
+    title: 'Life at the Edge',
+    url: 'https://open.substack.com/pub/jackmielke/p/life-at-the-edge',
+    description: 'Unpacking 3 pop-up cities, 6 unconventional months, and lots of change',
+    date: '2023-11-04',
+    readTime: '8 min'
+  },
+  {
+    title: 'The Mielke Way',
+    url: 'https://jackmielke.substack.com/',
+    description: 'Where I share my thoughts on AI, building in public, and creating communities',
+    date: '2023-10-15',
+    readTime: '5 min'
+  }
+];
+
+const socialLinks = [
+  { platform: 'twitter', url: 'https://x.com/mielke_jack', icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
+  { platform: 'instagram', url: 'https://www.instagram.com/jackk_mielkee/', icon: 'M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z' },
+  { platform: 'substack', url: 'https://jackmielke.substack.com/', icon: 'M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z' },
+  { platform: 'email', url: 'mailto:jackcmielke@gmail.com', icon: 'M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' },
+  { platform: 'github', url: 'https://github.com/jackmielke', icon: 'M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' }
 ];
 ---
 
-<Layout title="Jack Mielke">
-  <Navigation />
-  <main class="max-w-3xl mx-auto px-6 pt-28 pb-20">
-    <section id="hero" class="mb-24" data-aos="fade-up">
-      <div class="flex items-center gap-6 mb-8 bg-gradient-to-br from-[#134e57]/30 to-[#134e57]/10 p-6 rounded-xl backdrop-blur-sm hover:from-[#134e57]/40 hover:to-[#134e57]/20 transition-all duration-500 border border-[#134e57]/20 shadow-lg hover:shadow-xl">
-        <img 
-          src="/Muay Thai Jack.jpg" 
-          alt="Jack Mielke" 
-          class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105"
-        />
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold text-[#e6d7c3] mb-1">Jack Mielke</h1>
-          <p class="text-[#e6d7c3]/90 text-lg mb-3">Creative Developer & AI Whisperer</p>
-          <div class="flex gap-4">
-            <a href="https://x.com/mielke_jack" target="_blank" rel="noopener noreferrer" class="text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-              </svg>
-            </a>
-            <a href="https://www.instagram.com/jackk_mielkee/" target="_blank" rel="noopener noreferrer" class="text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-            <a href="https://jackmielke.substack.com/" target="_blank" rel="noopener noreferrer" class="text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"></path>
-              </svg>
-            </a>
-            <a href="mailto:jackcmielke@gmail.com" target="_blank" rel="noopener noreferrer" class="text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
-                <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
-              </svg>
-            </a>
-            <a href="https://github.com/jackmielke" target="_blank" rel="noopener noreferrer" class="text-[#e6d7c3]/70 hover:text-[#40e0d0] transition-colors duration-300">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-              </svg>
-            </a>
+<Layout title="Jack Mielke | Cyberdeck Interface">
+  <div class="terminal-nav">
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="bio">BIO</button>
+      <button class="tab-btn" data-tab="projects">PROJECTS</button>
+      <button class="tab-btn" data-tab="articles">ARTICLES</button>
+      <button class="tab-btn" data-tab="contact">CONTACT</button>
+    </div>
+  </div>
+  
+  <!-- Bio tab (default view) -->
+  <div class="tab-content active" id="bio-content">
+    <div class="user-profile data-box">
+      <div class="profile-header">
+        <div class="profile-image-container">
+          <img src="/Muay Thai Jack.jpg" alt="Jack Mielke" class="profile-image" />
+          <div class="profile-image-overlay"></div>
+        </div>
+        <div class="profile-info">
+          <h1 class="profile-name"># JACK MIELKE <span class="blink">_</span></h1>
+          <p class="profile-title">:: Creative Developer & AI Whisperer</p>
+          <div class="system-status">
+            <span class="status-item">Status: <span class="status-active">ACTIVE</span></span>
+            <span class="status-item">Uptime: 10950 days</span>
+            <span class="status-item">Location: [REDACTED]</span>
           </div>
         </div>
       </div>
-      <p class="text-xl text-[#e6d7c3]/90 leading-relaxed">
-        I'm currently excited about <a href="https://open.substack.com/pub/jackmielke/p/life-at-the-edge?r=nfyht&utm_medium=ios" class="font-medium text-[#40e0d0] hover:text-[#40e0d0]/80 transition-colors duration-200">popup cities</a>, building 5+ apps a day with AI, and going all in on health. 🌞
-      </p>
-    </section>
-
-    <section id="projects" class="mb-24" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-8 text-[#e6d7c3]">my projects 🧑‍🍳</h2>
-      <div class="grid gap-6">
-        {projects.map(project => (
-          <ProjectCard {...project} />
+      <div class="profile-links">
+        {socialLinks.map(link => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path fill="currentColor" d={link.icon}></path>
+            </svg>
+            <span class="social-label">{link.platform}</span>
+          </a>
         ))}
       </div>
-    </section>
+    </div>
 
-    <section id="writing" class="mb-24" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-8 text-[#e6d7c3]">my writing ✍️</h2>
-      <div class="space-y-8">
-        <a 
-          href="https://jackmielke.substack.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block p-6 rounded-xl bg-gradient-to-br from-[#134e57]/30 to-[#134e57]/10 backdrop-blur-sm hover:from-[#134e57]/40 hover:to-[#134e57]/20 transition-all duration-500 border border-[#134e57]/20 group shadow-lg hover:shadow-xl"
-          data-aos="fade-up"
-        >
-          <h3 class="text-2xl font-medium text-[#e6d7c3] mb-3">The Mielke Way</h3>
-          <p class="text-[#e6d7c3]/90 text-lg leading-relaxed">
-            Where I share my thoughts on AI, building in public, and creating communities in the digital age
-            <span class="group-hover:translate-x-2 inline-block transition-transform duration-500 ml-1">→</span>
-          </p>
-        </a>
+    <div class="biometric-data data-box">
+      <div class="data-heading">
+        <span class="data-icon">⟁</span> CURRENT INTERESTS
+      </div>
+      <ul class="data-list">
+        <li class="data-item">
+          <span class="item-label">Primary Focus:</span>
+          <span class="item-value"><a href="https://open.substack.com/pub/jackmielke/p/life-at-the-edge">Popup Cities</a> &amp; Decentralized Communities</span>
+        </li>
+        <li class="data-item">
+          <span class="item-label">Daily Operations:</span>
+          <span class="item-value">Building 5+ AI-powered applications</span>
+        </li>
+        <li class="data-item">
+          <span class="item-label">System Maintenance:</span>
+          <span class="item-value">Optimizing health &amp; physical performance</span>
+        </li>
+      </ul>
+      <div class="typing-effect">
+        <span id="typing-text"></span><span class="cursor">█</span>
+      </div>
+    </div>
+  </div>
 
-        <div class="mt-12" data-aos="fade-up">
-          <h3 class="text-2xl font-medium text-[#e6d7c3] mb-6">Featured Article</h3>
-          <a href={featuredPost.url} target="_blank" rel="noopener noreferrer" 
-            class="block p-6 rounded-xl bg-gradient-to-br from-[#134e57]/30 to-[#134e57]/10 backdrop-blur-sm hover:from-[#134e57]/40 hover:to-[#134e57]/20 transition-all duration-500 border border-[#134e57]/20 group shadow-lg hover:shadow-xl">
-            <div class="flex flex-col">
-              <h4 class="text-xl font-medium mb-3 text-[#e6d7c3]">{featuredPost.title}</h4>
-              <p class="text-[#e6d7c3]/90 text-lg leading-relaxed mb-6">{featuredPost.description}</p>
-              <div class="overflow-hidden rounded-xl">
+  <!-- Projects tab -->
+  <div class="tab-content" id="projects-content">
+    <div class="terminal-header-small">
+      <div class="header-prefix">$</div>
+      <div class="header-text">SELECT * FROM projects ORDER BY priority DESC</div>
+    </div>
+    
+    <div class="projects-grid">
+      {projects.map(project => (
+        <div class="project-card data-box">
+          <div class="project-title">
+            <span class="project-icon">⌘</span>
+            <a href={project.url} target="_blank" class="project-link">{project.title}</a>
+          </div>
+          <div class="iframe-container">
+            <div class="iframe-overlay">
+              <div class="loading-text">INITIALIZING PREVIEW...</div>
+            </div>
+            <iframe 
+              src={project.url}
+              title={project.title}
+              loading="lazy"
+              class="project-iframe"
+            ></iframe>
+          </div>
+          <p class="project-desc">{project.description}</p>
+          <div class="project-tech">
+            {project.techStack && project.techStack.map(tech => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+          <div class="card-footer">
+            <span class="cmd-prompt">$ open project</span>
+            <a href={project.url} target="_blank" class="card-btn">LAUNCH</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Articles tab -->
+  <div class="tab-content" id="articles-content">
+    <div class="terminal-header-small">
+      <div class="header-prefix">$</div>
+      <div class="header-text">cat ~/writing/publications.md</div>
+    </div>
+    
+    <div class="featured-article data-box">
+      <div class="article-metadata">
+        <span class="article-date">{featuredPost.date}</span>
+        <span class="article-time">{featuredPost.readTime}</span>
+        <span class="article-status">FEATURED</span>
+      </div>
+      <h2 class="article-title">
+        <a href={featuredPost.url} target="_blank">{featuredPost.title}</a>
+      </h2>
+      <p class="article-desc">{featuredPost.description}</p>
+      <div class="article-image-container">
                 <img 
                   src={featuredPost.imagePath} 
-                  alt="Edge City Art - Life at the Edge" 
-                  class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
-                />
+          alt="Featured article" 
+          class="article-image"
+        />
+        <div class="article-image-overlay"></div>
+      </div>
+    </div>
+    
+    <div class="articles-list">
+      {posts.map(post => (
+        <div class="article-item data-box">
+          <div class="article-metadata">
+            <span class="article-date">{post.date}</span>
+            <span class="article-time">{post.readTime}</span>
+          </div>
+          <h3 class="article-title-small">
+            <a href={post.url} target="_blank">{post.title}</a>
+          </h3>
+          <p class="article-desc-small">{post.description}</p>
+          <div class="card-footer">
+            <span class="cmd-prompt">$ read article</span>
+            <a href={post.url} target="_blank" class="card-btn">OPEN</a>
+          </div>
+        </div>
+      ))}
               </div>
             </div>
-          </a>
+  
+  <!-- Contact tab -->
+  <div class="tab-content" id="contact-content">
+    <div class="terminal-header-small">
+      <div class="header-prefix">$</div>
+      <div class="header-text">contact --init</div>
+    </div>
+
+    <div class="contact-info data-box">
+      <div class="data-heading">
+        <span class="data-icon">☍</span> COMMUNICATION CHANNELS
+      </div>
+      <div class="contact-message">
+        <p class="message-line">For consulting, web development work, or any specific questions, send a direct transmission to:</p>
+        <div class="code-block">
+          <span class="code-line">$ send_message "<a href="mailto:jackcmielke@gmail.com" class="highlighted">jackcmielke@gmail.com</a>"</span>
         </div>
       </div>
-    </section>
-
-    <section id="about" class="mb-24" data-aos="fade-up">
-      <h2 class="text-3xl font-bold mb-8 text-[#e6d7c3]">about 👋</h2>
-      <div class="space-y-6">
-        <a 
-          href="https://jackmielke.notion.site/Jack-Mielke-f5229540843445c591b0ffbd4d3f8ba5?pvs=4"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block text-xl text-[#e6d7c3]/90 hover:text-[#e6d7c3] transition-colors group"
-          data-aos="fade-up"
-        >
-          View my complete resume <span class="group-hover:translate-x-2 inline-block transition-transform duration-500">→</span>
-        </a>
-        <p class="text-xl text-[#e6d7c3]/90 leading-relaxed" data-aos="fade-up">
-          For consulting, web development work, or any specific questions, feel free to email me at <a href="mailto:jackcmielke@gmail.com" class="underline text-[#40e0d0] hover:text-[#40e0d0]/80 transition-colors duration-300">jackcmielke@gmail.com</a>
-        </p>
+      <div class="divider"><span>or</span></div>
+      <div class="resume-link">
+        <p class="message-line">Access complete system specifications:</p>
+        <div class="code-block">
+          <span class="code-line">$ download <a href="https://jackmielke.notion.site/Jack-Mielke-f5229540843445c591b0ffbd4d3f8ba5?pvs=4" target="_blank" class="highlighted">resume.pdf</a></span>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+    
+    <div class="matrix-rain-container">
+      <canvas id="matrix-rain"></canvas>
+    </div>
+  </div>
 </Layout>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Tab switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabName = button.getAttribute('data-tab');
+        
+        // Update buttons
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Update content
+        tabContents.forEach(content => content.classList.remove('active'));
+        document.getElementById(`${tabName}-content`).classList.add('active');
+      });
+    });
+
+    // Typing effect
+    const textElement = document.getElementById("typing-text");
+    const text = "I'm currently exploring the intersection of AI, community building, and digital nomadism. My systems are optimized for rapid prototyping and creative problem-solving.";
+    let index = 0;
+    let isDeleting = false;
+    let typingSpeed = 50;
+
+    function type() {
+      const currentText = text.substring(0, index);
+      textElement.textContent = currentText;
+      
+      if (!isDeleting && index < text.length) {
+        index++;
+        typingSpeed = Math.random() * 50 + 50;
+      } else if (isDeleting && index > 0) {
+        index--;
+        typingSpeed = 30;
+      } else {
+        isDeleting = !isDeleting;
+        typingSpeed = isDeleting ? 1000 : 1000;
+      }
+      
+      setTimeout(type, typingSpeed);
+    }
+    
+    setTimeout(type, 1000);
+
+    // Matrix rain effect for contact page
+    const matrix = document.getElementById('matrix-rain');
+    if (matrix) {
+      const ctx = matrix.getContext('2d');
+      
+      // Make canvas full size of its container
+      function resizeCanvas() {
+        const container = document.querySelector('.matrix-rain-container');
+        if (container) {
+          matrix.width = container.offsetWidth;
+          matrix.height = container.offsetHeight;
+        }
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Matrix rain characters
+      const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      const columns = matrix.width / 15;
+      const drops = [];
+      
+      // Initialize drops
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -20);
+      }
+      
+      // Draw the matrix
+      function drawMatrix() {
+        // Semi-transparent black to create trail effect
+        ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+        ctx.fillRect(0, 0, matrix.width, matrix.height);
+        
+        ctx.fillStyle = '#40e0d0';
+        ctx.font = '15px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          // Random character
+          const text = characters[Math.floor(Math.random() * characters.length)];
+          
+          // Draw character
+          ctx.fillText(text, i * 15, drops[i] * 15);
+          
+          // Move drop down
+          if (drops[i] * 15 > matrix.height && Math.random() > 0.98) {
+            drops[i] = 0;
+          }
+          
+          drops[i]++;
+        }
+      }
+      
+      // Contact tab animation
+      const contactTab = document.querySelector('[data-tab="contact"]');
+      contactTab.addEventListener('click', () => {
+        setInterval(drawMatrix, 80);
+      });
+    }
+  });
+</script>
+
 <style>
-  section {
-    scroll-margin-top: 7rem;
+  /* Terminal Navigation */
+  .terminal-nav {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(64, 224, 208, 0.3);
   }
 
-  @keyframes subtle-float {
-    0%, 100% {
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: rgba(194, 230, 233, 0.7);
+    padding: 0.5rem 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  .tab-btn:hover {
+    color: rgba(194, 230, 233, 1);
+  }
+
+  .tab-btn.active {
+    color: var(--terminal-glow);
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--terminal-glow);
+    box-shadow: 0 0 10px rgba(64, 224, 208, 0.5);
+  }
+
+  /* Tab content */
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Bio tab */
+  .user-profile {
+    margin-bottom: 2rem;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(64, 224, 208, 0.3);
+  }
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 10, 15, 0.2) 0%, rgba(64, 224, 208, 0.1) 100%);
+    pointer-events: none;
+  }
+
+  .profile-info {
+    flex: 1;
+  }
+
+  .profile-name {
+    color: var(--terminal-glow);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-title {
+    color: rgba(194, 230, 233, 0.8);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .system-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: rgba(194, 230, 233, 0.6);
+  }
+
+  .status-active {
+    color: #50fa7b;
+  }
+
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    background-color: rgba(64, 224, 208, 0.1);
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+  }
+
+  .social-link:hover {
+    background-color: rgba(64, 224, 208, 0.2);
+    box-shadow: 0 0 10px rgba(64, 224, 208, 0.2);
+  }
+
+  .social-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .social-label {
+    text-transform: capitalize;
+  }
+
+  /* Biometric data */
+  .biometric-data {
+    margin-bottom: 2rem;
+  }
+
+  .data-icon {
+    color: var(--terminal-glow);
+    margin-right: 0.5rem;
+  }
+
+  .data-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .data-item {
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .item-label {
+    color: rgba(194, 230, 233, 0.6);
+    font-size: 0.85rem;
+  }
+
+  .item-value {
+    color: rgba(194, 230, 233, 0.9);
+  }
+
+  .typing-effect {
+    position: relative;
+    padding: 1rem;
+    background-color: rgba(10, 10, 15, 0.5);
+    border: 1px solid rgba(64, 224, 208, 0.2);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: rgba(194, 230, 233, 0.9);
+    line-height: 1.6;
+  }
+
+  .cursor {
+    animation: blink 1s infinite;
+  }
+
+  /* Projects tab */
+  .terminal-header-small {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(12, 30, 38, 0.8);
+    border-radius: 4px;
+  }
+
+  .header-prefix {
+    color: #50fa7b;
+    margin-right: 0.5rem;
+  }
+
+  .header-text {
+    color: rgba(194, 230, 233, 0.9);
+    font-size: 0.9rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-icon {
+    color: var(--terminal-glow);
+    margin-right: 0.5rem;
+  }
+
+  .project-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-desc {
+    color: rgba(194, 230, 233, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(64, 224, 208, 0.1);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: rgba(194, 230, 233, 0.9);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(64, 224, 208, 0.2);
+  }
+
+  .cmd-prompt {
+    color: rgba(194, 230, 233, 0.6);
+    font-size: 0.8rem;
+  }
+
+  .card-btn {
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(64, 224, 208, 0.15);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+
+  .card-btn:hover {
+    background-color: rgba(64, 224, 208, 0.3);
+    box-shadow: 0 0 10px rgba(64, 224, 208, 0.3);
+  }
+
+  /* Articles */
+  .featured-article {
+    margin-bottom: 2rem;
+  }
+
+  .article-metadata {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: rgba(194, 230, 233, 0.6);
+  }
+
+  .article-status {
+    color: #50fa7b;
+    font-weight: 500;
+  }
+
+  .article-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .article-desc {
+    color: rgba(194, 230, 233, 0.9);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .article-image-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 10, 15, 0.2) 0%, rgba(64, 224, 208, 0.1) 100%);
+    pointer-events: none;
+  }
+
+  .articles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .article-item {
+    padding: 1.5rem;
+  }
+
+  .article-title-small {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .article-desc-small {
+    color: rgba(194, 230, 233, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Contact */
+  .contact-info {
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-message {
+    margin-bottom: 2rem;
+  }
+
+  .message-line {
+    margin-bottom: 1rem;
+    color: rgba(194, 230, 233, 0.9);
+  }
+
+  .code-block {
+    padding: 1rem;
+    background-color: rgba(10, 10, 15, 0.8);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--terminal-glow);
+  }
+
+  .code-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    color: rgba(194, 230, 233, 0.8);
+  }
+
+  .highlighted {
+    color: var(--terminal-highlight);
+    font-weight: 500;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    color: rgba(194, 230, 233, 0.5);
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px dashed rgba(64, 224, 208, 0.3);
+  }
+
+  .divider span {
+    padding: 0 1rem;
+  }
+
+  .matrix-rain-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
       transform: translateY(0);
     }
-    50% {
-      transform: translateY(-5px);
+  }
+
+  .blink {
+    animation: blink 1s infinite;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .projects-grid,
+    .articles-list {
+      grid-template-columns: 1fr;
     }
-  }
 
-  .hover\:transform:hover {
-    transform: scale(1.02);
-  }
+    .profile-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-  /* Add smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Enhance text readability */
-  p {
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    .profile-links {
+      flex-direction: column;
+    }
   }
 </style>

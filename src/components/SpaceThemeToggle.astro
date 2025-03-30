@@ -1,0 +1,112 @@
+<button
+  id="themeToggle"
+  class="fixed top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 group z-[100]"
+  aria-label="Toggle space theme"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-4 h-4 text-white/70 group-hover:text-white/90 transition-all duration-300"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+  >
+    <circle cx="12" cy="12" r="5" />
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+  </svg>
+</button>
+
+<style>
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+  }
+
+  .space-bg {
+    position: fixed;
+    inset: 0;
+    background-color: #0d1b1e;
+    background-image: 
+      radial-gradient(1px 1px at 25% 25%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1.5px 1.5px at 75% 75%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1.5px 1.5px at 25% 75%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1px 1px at 75% 25%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1px 1px at 50% 25%, rgba(255,255,255,0.6) 100%, transparent),
+      radial-gradient(1px 1px at 25% 50%, rgba(255,255,255,0.6) 100%, transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: -10;
+  }
+
+  .space-bg.active {
+    opacity: 0.7;
+  }
+
+  .star {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.8);
+    animation: twinkle 4s infinite;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 640px) {
+    #themeToggle {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+</style>
+
+<div id="spaceBackground" class="space-bg"></div>
+
+<script>
+  function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const spaceBackground = document.getElementById('spaceBackground');
+    const gradientBackground = document.querySelector('.bg-gradient-to-b');
+    
+    if (!themeToggle || !spaceBackground || !gradientBackground) {
+      console.error('Required elements not found');
+      return;
+    }
+
+    let isSpaceTheme = false;
+
+    themeToggle.addEventListener('click', () => {
+      isSpaceTheme = !isSpaceTheme;
+      
+      if (isSpaceTheme) {
+        spaceBackground.classList.add('active');
+        gradientBackground.style.opacity = '0';
+      } else {
+        spaceBackground.classList.remove('active');
+        gradientBackground.style.opacity = '1';
+      }
+    });
+
+    // Add twinkling stars with varying sizes
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      const size = Math.random() * 1 + 0.5; // Random size between 0.5-1.5px
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.opacity = Math.random() * 0.5 + 0.3; // Random initial opacity
+      spaceBackground.appendChild(star);
+    }
+  }
+
+  // Run initialization when the DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+</script> 
