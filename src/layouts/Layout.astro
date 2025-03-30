@@ -10,8 +10,6 @@ const {
   description = "Jack Mielke - Creative Developer & AI Whisperer. Explore my projects, writing, and work.",
   image = "https://jackmielke.com/og-image.jpg" 
 } = Astro.props;
-
-import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
 ---
 
 <!doctype html>
@@ -70,8 +68,6 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
         </div>
       </div>
     </div>
-
-    <SpaceThemeToggle />
     
     <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script is:inline>
@@ -180,16 +176,19 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
 
   /* Terminal styling */
   .terminal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 92%;
     max-width: 1200px;
-    margin: 2rem auto;
+    height: 90vh;
     background-color: rgba(10, 10, 15, 0.9);
     border: 1px solid var(--terminal-glow);
     border-radius: 8px;
     box-shadow: 0 0 30px rgba(64, 224, 208, 0.2);
     overflow: hidden;
     backdrop-filter: blur(10px);
-    height: calc(100vh - 4rem);
     display: flex;
     flex-direction: column;
   }
@@ -233,17 +232,19 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
 
   .terminal-content {
     flex: 1;
-    padding: 1.5rem;
-    overflow-y: auto;
     position: relative;
+    padding: 1rem;
+    overflow: hidden;
   }
 
   .terminal-bootup {
-    margin-bottom: 2rem;
+    height: auto;
+    max-height: 120px;
+    overflow: hidden;
+    margin-bottom: 1rem;
     font-size: 0.9rem;
     color: var(--terminal-text);
     transition: all 0.8s ease;
-    overflow: hidden;
   }
 
   .bootup-line {
@@ -265,7 +266,37 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
   }
 
   .terminal-main {
+    height: calc(100% - 120px); /* Subtract bootup sequence height */
+    position: relative;
     transition: opacity 1s ease;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--terminal-glow) transparent;
+  }
+
+  .terminal-main::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .terminal-main::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .terminal-main::-webkit-scrollbar-thumb {
+    background-color: var(--terminal-glow);
+    border-radius: 3px;
+  }
+
+  .tab-content {
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .tab-content.active {
+    opacity: 1;
+    visibility: visible;
   }
 
   /* Effect overlays */
@@ -327,7 +358,7 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
     border: 1px solid rgba(64, 224, 208, 0.3);
     border-radius: 4px;
     padding: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     background-color: rgba(12, 30, 38, 0.5);
     transition: all 0.3s ease;
   }
@@ -380,14 +411,13 @@ import SpaceThemeToggle from '../components/SpaceThemeToggle.astro';
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   @media (min-width: 768px) {
     .projects-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
-      padding: 1.5rem;
     }
   }
 
